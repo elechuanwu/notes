@@ -2,7 +2,7 @@
 
 > 多数情况下，不使用索引，试图通过其他途径来提高性能，纯粹是浪费时间（出自《MySQL技术内幕》）。
 
-那索引是怎么提高性能的呢？![阅读更多…](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)
+那索引是怎么提高性能的呢？
 
 * 通过索引能获取数据的结束位置，从而跳过其他部分
 * 定位算法，可以快速定位第一个匹配值
@@ -32,7 +32,7 @@ SELECT ... WHERE pub_date BETWEEN '2005-01-01' and '2005-03-31';
 
 * 数据维度势
 
-维度就是说表中容纳的非重复值的个数。我们尽量应该选择一些区分度高的，区分度＝count(distinct col)/count(*)，按照[美团](http://tech.meituan.com/mysql-index.html)的博客来讲，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条记录。
+维度就是说表中容纳的非重复值的个数。我们尽量应该选择一些区分度高的，区分度＝`count(distinct col)/count(*)`，按照[美团](http://tech.meituan.com/mysql-index.html)的博客来讲，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条记录。
 
 * 不要滥用索引
 
@@ -65,18 +65,18 @@ mysql会一直向右匹配直到遇到范围查询(>、<、between、like)就停
 
 先大概解释下Explain返回的字段名吧。
 
-| Column        | 意义        |      |
-| ------------- | --------- | ---- |
-| select_type   | select类型  |      |
-| table         | 展示行的table |      |
-| type          | join类型    |      |
-| possible_keys | 索引的可能取值   |      |
-| key           | 实际使用的索引   |      |
-| key_len       | 使用索引的长度   |      |
-| ref           | 跟索引       |      |
-| rows          | 关键指标      |      |
-| filtered      |           |      |
-| Extra         |           |      |
+| Column        | 意义         |
+| ------------- | ----------  |
+| select_type   | select类型   |
+| table         | 展示行的table |
+| type          | join类型     |
+| possible_keys | 索引的可能取值 |
+| key           | 实际使用的索引 |
+| key_len       | 使用索引的长度 |
+| ref           | 跟索引        |
+| rows          | 关键指标      |
+| filtered      |              |
+| Extra         |              |
 
 具体可参考[MySQL Explain](http://dev.mysql.com/doc/refman/5.7/en/explain-output.html)。
 
@@ -90,4 +90,3 @@ Ref:
 
 1. [美团点评团队](http://tech.meituan.com/mysql-index.html)
 2. MySQL技术内幕
-
